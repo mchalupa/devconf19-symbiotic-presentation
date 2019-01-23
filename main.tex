@@ -229,26 +229,34 @@ if (a + b + c <= 0)
                  minimum height=1cm, minimum width=0.7cm},
     bullet/.style = {overlay, draw, fill=black,
                      %minimum height=.1cm, minimum width=.1cm,
-                     circle},
+                     circle, outer sep=.5em},
   ]
-  \node[fl] (source1) at (.8,  2.3) {.c};
-  \node[fl] (source2) at (1,2.2) {.c};
-  \node[fl] (source3) at (1.2,2.1) {.c};
-  \node[overlay] (sources) at (1,1.5) {};
+  \node[fl] (source1) at (-.2, 2.3) {.c};
+  \node[fl] (source2) at (0,  2.2) {.c};
+  \node[fl] (source3) at (0.2,2.1) {.c};
+  \node[overlay] (sources) at (0,1.5) {};
   %\node[overlay,font=\itshape] (sources) at (1,1) {sources};
   \node[fl] (test1) at (9.8 ,-2) {test};
   \node[fl] (test2) at (10  ,-2.2) {test};
   \node[fl] (test3) at (10.2,-2.4) {test};
   \node[overlay] (tests) at (10,-1.5) {};
-  \node[] (llvm) at (1,0) {LLVM};
+  \node[] (llvm) at (0,0) {LLVM};
   \node[] (klee) at (10, 0) {KLEE};
   \draw[->] (llvm) -> (klee);
   \draw[->] (sources) edge (llvm);
   \draw[->] (klee) edge (tests);
 
-  \node[bullet] (opt1-bullet) at (3,0) {};
-  \node[overlay] (opt1) at (3,-2) {optimizations};
+  \node[bullet] (opt1-bullet) at (2.5,0) {};
+  \node[overlay] (opt1) at (2.5,-2) {optimizations};
   \draw[->, dashed,overlay] (opt1) -> (opt1-bullet);
+
+  \node[bullet] (slicing-bullet) at (5,0) {};
+  \node[overlay] (slicing) at (5,2) {slicing};
+  \draw[->, dashed,overlay] (slicing) -> (slicing-bullet);
+
+  \node[bullet] (opt2-bullet) at (7.5,0) {};
+  \node[overlay] (opt2) at (7.5,-2) {optimizations};
+  \draw[->, dashed,overlay] (opt2) -> (opt2-bullet);
 \end{tikzpicture}
 \end{center}
 \end{frame}
