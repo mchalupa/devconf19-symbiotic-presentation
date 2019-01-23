@@ -270,10 +270,26 @@ if (a + b + c <= 0)
 \begin{frame}
 \frametitle{Program Slicing}
 \begin{itemize}
-  \item Graphs
+  \item Compute dependencies between instructions.
+  \item We say that instruction A depends on instruction B if:
+  \begin{itemize}
+    \item instruction A uses memory that has been written by instruction~B, or
+    \item instruction A may not be executed if at B we go the other way
+  \end{itemize}
+  %\item We must perform pointer analysis to correctly compute dependencies.
+  \item Slicing: keep only the instructions on which the error (transitively) depends.
 \end{itemize}
 \end{frame}
 %% -------------------------------------------------------------------
+
+%% -------------------------------------------------------------------
+\begin{frame}
+\frametitle{Program Slicing -- Example}
+Example!
+\end{frame}
+%% -------------------------------------------------------------------
+
+
 
 %% -------------------------------------------------------------------
 \begin{frame}[fragile]
@@ -331,9 +347,12 @@ if (a + b + c <= 0)
 \begin{frame}
 \frametitle{Symbiotic -- cont.}
 \begin{itemize}
-  \item Automatically marks memory symbolic.
-  \item Removes undefined functions with symbolic stubs.
-  \item Limits: no C++ (exceptions), no threads
+  \item Apart from the already mentioned steps, Symbiotic:
+  \begin{itemize}
+    \item automatically marks memory symbolic,
+    \item replaces undefined functions with symbolic stubs.
+  \end{itemize}
+  \item Limits: no C++ (exceptions), no threads (yet).
   %\item Provides model of the environment (libc, POSIX).
 \end{itemize}
 \end{frame}
@@ -346,10 +365,10 @@ if (a + b + c <= 0)
   \item Scalability
   \begin{itemize}
     \item slicing (faster analyses),
-    \item symbolic execution (abstraction)
+    \item symbolic execution (abstraction).
   \end{itemize}
   \item Better modelling of the environment (POSIX).
-  \item Nice representation of the results.
+  \item Nicer representation of the results.
   \item C++ and threads.
 \end{itemize}
 \end{frame}
@@ -360,6 +379,7 @@ if (a + b + c <= 0)
 \frametitle{Conclusion}
 \begin{itemize}
   \item Symbiotic is a tool for finding bugs in C programs.
+  \item Combines fast static analysis with program slicing and symbolic execution.
   \item Runs on sequential C code.
   \item Still needs some work
   \begin{itemize}
