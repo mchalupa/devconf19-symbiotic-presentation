@@ -381,11 +381,6 @@ int zeroing(char *buf, size_t size)
   \node[overlay,align=center] (instr) at (4,2) {find\\possible errors};
   \draw[->, dashed,overlay] (instr) -> (instr-bullet);
 
-\pause
-  \node[bullet] (opt2-bullet) at (8,0) {};
-  \node[overlay,align=center] (opt2) at (8,-2) {code\\optimizations};
-  \draw[->, dashed,overlay] (opt2) -> (opt2-bullet);
-
 \end{tikzpicture}
 \end{center}
 \end{frame}
@@ -401,6 +396,55 @@ int zeroing(char *buf, size_t size)
 \end{itemize}
 \end{frame}
 %% -------------------------------------------------------------------
+
+%% -------------------------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Symbiotic - cont.}
+\begin{center}
+\begin{tikzpicture}[
+    fl/.style = {overlay, draw, font=\ttfamily\tiny,fill=white,
+                 minimum height=1cm, minimum width=0.7cm},
+    bullet/.style = {overlay, draw, fill=black,
+                     %minimum height=.1cm, minimum width=.1cm,
+                     circle, outer sep=.5em},
+  ]
+  \node[fl] (source1) at (-.2, 2.3) {.c};
+  \node[fl] (source2) at (0,  2.2) {.c};
+  \node[fl] (source3) at (0.2,2.1) {.c};
+  \node[overlay] (sources) at (0,1.5) {};
+  %\node[overlay,font=\itshape] (sources) at (1,1) {sources};
+  \node[fl] (test1) at (9.8 ,-2) {test};
+  \node[fl] (test2) at (10  ,-2.2) {test};
+  \node[fl] (test3) at (10.2,-2.4) {test};
+  \node[overlay] (tests) at (10,-1.5) {};
+  \node[] (llvm) at (0,0) {LLVM};
+  \node[] (klee) at (10, 0) {KLEE};
+  \draw[->] (llvm) -> (klee);
+  \draw[->] (sources) edge (llvm);
+  \draw[->] (klee) edge (tests);
+
+  \node[bullet] (opt1-bullet) at (2,0) {};
+  \node[overlay,align=center] (opt1) at (2,-2) {code\\optimizations};
+  \draw[->, dashed,overlay] (opt1) -> (opt1-bullet);
+
+  \node[bullet] (slicing-bullet) at (6,0) {};
+  \node[overlay,align=center] (slicing) at (6,2) {program\\slicing};
+  \draw[->, dashed,overlay] (slicing) -> (slicing-bullet);
+
+  \node[bullet] (instr-bullet) at (4,0) {};
+  \node[overlay,align=center] (instr) at (4,2) {find\\possible errors};
+  \draw[->, dashed,overlay] (instr) -> (instr-bullet);
+
+\pause
+  \node[bullet] (opt2-bullet) at (8,0) {};
+  \node[overlay,align=center] (opt2) at (8,-2) {code\\optimizations};
+  \draw[->, dashed,overlay] (opt2) -> (opt2-bullet);
+
+\end{tikzpicture}
+\end{center}
+\end{frame}
+%% -------------------------------------------------------------------
+
 
 %% -------------------------------------------------------------------
 \begin{frame}
@@ -425,10 +469,11 @@ int zeroing(char *buf, size_t size)
   \item Scalability
   \begin{itemize}
     \item slicing (faster analyses),
-    \item symbolic execution (abstraction).
+    \item symbolic execution (abstraction),
+    \item different back-ends than KLEE.
   \end{itemize}
   \item Better modelling of the environment (POSIX).
-  \item Nicer representation of the results.
+  %\item Nicer representation of the results.
   \item C++ and threads.
 \end{itemize}
 \end{frame}
