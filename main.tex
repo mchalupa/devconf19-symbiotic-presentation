@@ -92,6 +92,12 @@
 %% -------------------------------------------------------------------
 \begin{frame}
 \frametitle{Bugs}
+\begin{itemize}
+  \item Bugs are annoying (if nothing else...).
+  \item Nowadays, we usually use testing to find them.
+  \item It is hard to write tests that reveal bugs.
+  \item Automatic test generation can be used.
+\end{itemize}
 \end{frame}
 %% -------------------------------------------------------------------
 
@@ -99,6 +105,15 @@
 %% -------------------------------------------------------------------
 \begin{frame}
 \frametitle{Symbolic Execution}
+\begin{itemize}
+  \item Given a program with inputs:
+  \begin{itemize}
+    \item use symbols instead of inputs,
+    \item execute the program with these symbols,
+    \item fork the execution on branchings.
+  \end{itemize}
+  \item This way we can enumerate all possible paths in the program.
+\end{itemize}
 \end{frame}
 %% -------------------------------------------------------------------
 
@@ -108,18 +123,19 @@
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}[language=C]
-int a = *, b = *, c = *;
-
-if (a > 0) {
-  c = 2;
-  if (b < 0) {
-    c = b
-  }
-} else {
-    c = -2;
+void foo(int a, int b, int c)
+{
+    if (a > 0) {
+        c = 2;
+        if (b < 0) {
+            c = b
+        }
+    } else {
+        c = -2;
+    }
+    if (a + b + c <= 0)
+        error();
 }
-if (a + b + c <= 0)
-  error();
 \end{lstlisting}
 \end{tabular}
 \end{center}
