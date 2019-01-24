@@ -128,7 +128,7 @@ void foo(int a, int b, int c)
     if (a > 0) {
         c = 2;
         if (b < 0) {
-            c = b
+            c = b;
         }
     } else {
         c = -2;
@@ -199,7 +199,7 @@ void foo(int a, int b, int c)
 \begin{frame}
 \frametitle{KLEE}
 \begin{itemize}
-  \item Open-source symbolic executor.
+  \item Open-source symbolic executor for LLVM bitcode.
   \item \url{http://klee.github.io/}
 \end{itemize}
 \bigskip
@@ -241,6 +241,22 @@ void foo(int a, int b, int c)
 \end{center}
 \end{frame}
 %% -------------------------------------------------------------------
+
+%% -------------------------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Symbiotic}
+\begin{center}
+\begin{tikzpicture}
+  \node[inner sep=1em] (a) {Symbolic execution is computationally very demanding.};
+\pause
+  \node[inner sep=1em, below=of a] (b) {Preprocess the code before giving it to KLEE.};
+  \draw[->, very thick] (a) -> (b);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+%% -------------------------------------------------------------------
+
+
 
 %% -------------------------------------------------------------------
 \begin{frame}[fragile]
@@ -290,7 +306,7 @@ void foo(int a, int b, int c)
   \item We say that instruction A depends on instruction B if:
   \begin{itemize}
     \item instruction A uses memory that has been written by instruction~B, or
-    \item instruction A may not be executed if at B we go the other way
+    \item instruction A is not executed if we go some other way at (branching) B
   \end{itemize}
   %\item We must perform pointer analysis to correctly compute dependencies.
   \item Slicing: keep only the instructions on which the error (transitively) depends.
@@ -369,6 +385,7 @@ Example!
     \item replaces undefined functions with symbolic stubs.
   \end{itemize}
   \item Limits: no C++ (exceptions), no threads (yet).
+  \item Unfortunately, Symbiotic still does not scale to large programs.
   %\item Provides model of the environment (libc, POSIX).
 \end{itemize}
 \end{frame}
